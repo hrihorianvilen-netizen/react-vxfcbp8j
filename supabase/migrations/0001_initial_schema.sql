@@ -6,6 +6,11 @@
 --           writable only by admins.
 -- ============================================================================
 
+-- `is_admin()` is a SQL-language function that references public.profiles,
+-- which is created further down. SQL function bodies are validated at creation
+-- time, so disable that check for this migration script.
+set check_function_bodies = off;
+
 -- ---------------------------------------------------------------------------
 -- Helper: is the current user an admin? (used by admin-only write policies)
 -- SECURITY DEFINER + stable so it can read profiles without recursing on RLS.
