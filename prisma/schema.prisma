@@ -1,0 +1,20 @@
+// Prisma is used for DB connection + migrations/introspection tooling.
+// App data access at runtime goes through the Supabase JS client so that
+// Row-Level Security is enforced per authenticated user.
+//
+// Models are introspected from the database (`prisma db pull`) AFTER the
+// SQL migrations in supabase/ are applied, so they always reflect the real
+// schema (including tables Prisma alone can't express, like RLS policies).
+//
+// To introspect later: profiles.id has a FK to auth.users, so add
+//   schemas = ["public", "auth"]
+// to the datasource below (and `previewFeatures = ["multiSchema"]` if needed)
+// before running `prisma db pull`. The connection URL lives in prisma.config.ts.
+
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
